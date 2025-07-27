@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paul Mwangi - Full Stack Developer & AI/ML</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #E2E8F0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #2563EB, #3B82F6);
+            border-radius: 4px;
+            transition: width 1.5s ease-in-out;
+            width: 0;
+        }
+        
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: #2563EB;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.8;
+        }
+        
+        .carousel-control-prev {
+            left: -25px;
+        }
+        
+        .carousel-control-next {
+            right: -25px;
+        }
+        
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%);
+            min-height: 100vh;
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        /* Contact Card Text Wrapping */
+        .contact-card-text {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        
+        /* Timeline Education Styles */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: #E2E8F0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline-content {
+            position: relative;
+            width: 45%;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: #2563EB;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1E293B;
+        }
+
+        .timeline-institution {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2563EB;
+            margin-bottom: 15px;
+        }
+
+        .timeline-description {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .timeline-left {
+            left: 0;
+        }
+
+        .timeline-right {
+            left: 55%;
+        }
+
+        .timeline-left::before {
+            right: -10px;
+        }
+
+        .timeline-right::before {
+            left: -10px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #0EA5E9;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover .timeline-dot {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+        }
+
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        /* Responsive Styles for Timeline */
+        @media (max-width: 992px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                left: 60px !important;
+            }
+
+            .timeline-content::before {
+                left: -10px !important;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .contact-card-text {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .contact-card-text {
+                font-size: 0.8rem;
+            }
+        }
+</style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fprofession4253back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="#home">
+            <i class="fas fa-code me-2"></i>Paul Mwangi
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#experience">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero-section d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-text-primary mb-3">
+                    Hi, I'm <span class="text-primary">Paul Mwangi</span>
+                </h1>
+                <h2 class="h3 text-secondary-600 mb-4">Full Stack Developer & AI/ML</h2>
+                <p class="lead text-text-secondary mb-4">
+                    Passionate about creating exceptional digital experiences through clean code and innovative AI solutions. 
+                    Specializing in Django, REST Framework, and FastAPI with 2+ years of industry experience.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="mailto:paulmwangikimaru@gmail.com" class="btn btn-primary btn-lg px-4 py-2">
+                        <i class="fas fa-envelope me-2"></i>Get In Touch
+                    </a>
+                    <a href="../assets/Paul_Mwangi_Resume.pdf" download="Paul_Mwangi_Resume.pdf" class="btn btn-outline-primary btn-lg px-4 py-2">
+                        <i class="fas fa-download me-2"></i>Download Resume
+                    </a>
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <a href="https://www.linkedin.com/in/paul-mwangi-505b581b2" target="_blank" class="text-secondary-500 fs-4">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/paulmatrix" target="_blank" class="text-secondary-500 fs-4">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://wa.me/254794581348" target="_blank" class="text-secondary-500 fs-4">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="text-secondary-500 fs-4">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="position-relative">
+                    <img src="../assets/images/WhatsApp_Image_2025-06-30_at_22.48.07_a29949d0-1753652187421.jpg" alt="Paul Mwangi" class="img-fluid rounded-circle shadow-elevated" style="width: 350px; height: 350px; object-fit: cover;" loading="lazy" />
+                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded-circle" style="background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1)); z-index: -1; transform: scale(1.1);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section-padding bg-surface">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold text-text-primary mb-3">About Me</h2>
+                <p class="lead text-text-secondary">
+                    Crafting digital solutions that make a difference
+                </p>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="bg-white p-5 rounded-professional shadow-professional">
+                    <h3 class="h4 fw-bold text-text-primary mb-3">My Journey</h3>
+                    <p class="text-text-secondary mb-4">
+                        With over 2 years of experience in full-stack development and AI/ML, I've had the privilege of working 
+                        with innovative companies to bring cutting-edge solutions to life. My passion lies in 
+                        creating user-centric applications that solve real-world problems using modern technologies.
+                    </p>
+                    <p class="text-text-secondary mb-4">
+                        I specialize in Django, REST Framework, and FastAPI, focusing on backend development and AI integration. 
+                        When I'm not coding, you'll find me exploring new AI technologies, contributing to open-source projects, 
+                        or mentoring aspiring developers in the tech community.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="text-center p-3 bg-primary-50 rounded-interactive">
+                                <div class="h3 fw-bold text-primary mb-1">30+</div>
+                                <div class="small text-text-secondary">Projects Completed</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-3 bg-success-100 rounded-interactive">
+                                <div class="h3 fw-bold text-success mb-1">2+</div>
+                                <div class="small text-text-secondary">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.pixabay.com/photo/2016/11/19/14/00/code-1839406_1280.jpg" alt="Coding workspace" class="img-fluid rounded-professional shadow-professional" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold text-text-primary mb-3">Technical Skills</h2>
+                <p class="lead text-text-secondary">
+                    Technologies and tools I work with
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="bg-white p-4 rounded-professional shadow-professional h-100">
+                    <h4 class="fw-bold text-text-primary mb-4">Backend Development</h4>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Python/Django</span>
+                            <span class="text-text-secondary">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Django REST Framework</span>
+                            <span class="text-text-secondary">92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="92"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">FastAPI</span>
+                            <span class="text-text-secondary">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Laravel/PHP</span>
+                            <span class="text-text-secondary">82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="82"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="bg-white p-4 rounded-professional shadow-professional h-100">
+                    <h4 class="fw-bold text-text-primary mb-4">Frontend Development</h4>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">React</span>
+                            <span class="text-text-secondary">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">HTML/CSS</span>
+                            <span class="text-text-secondary">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Bootstrap5</span>
+                            <span class="text-text-secondary">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">JavaScript</span>
+                            <span class="text-text-secondary">82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="82"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="bg-white p-4 rounded-professional shadow-professional h-100">
+                    <h4 class="fw-bold text-text-primary mb-4">DevOps & Tools</h4>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Git</span>
+                            <span class="text-text-secondary">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Agile/Scrum</span>
+                            <span class="text-text-secondary">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Docker</span>
+                            <span class="text-text-secondary">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">AWS</span>
+                            <span class="text-text-secondary">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="bg-white p-4 rounded-professional shadow-professional h-100">
+                    <h4 class="fw-bold text-text-primary mb-4">AI & Machine Learning</h4>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Machine Learning</span>
+                            <span class="text-text-secondary">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">Data Analysis</span>
+                            <span class="text-text-secondary">82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="82"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">TensorFlow/PyTorch</span>
+                            <span class="text-text-secondary">78%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="78"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-medium text-text-primary">CI/CD</span>
+                            <span class="text-text-secondary">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="section-padding bg-surface">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold text-text-primary mb-3">Work Experience</h2>
+                <p class="lead text-text-secondary">
+                    My professional journey and achievements
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div id="experienceCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="bg-white p-5 rounded-professional shadow-professional">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center mb-3 mb-md-0">
+                                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Skillmind Softwares Logo" class="img-fluid rounded-circle shadow-professional" style="width: 80px; height: 80px; object-fit: cover;" loading="lazy" onerror="this.src='https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h4 class="fw-bold text-text-primary mb-2">Backend Python/Django & Agentic AI Developer</h4>
+                                        <h5 class="text-primary mb-2">Skillmind Softwares</h5>
+                                        <p class="text-text-secondary mb-3">
+                                            <i class="fas fa-calendar-alt me-2"></i>March 2025 - Present
+                                        </p>
+                                        <p class="text-text-secondary mb-3">
+                                            Currently working on modern AI-powered HR platform, developing backend services using Python/Django 
+                                            and implementing agentic AI solutions for automated recruitment and employee management systems.
+                                        </p>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-primary-100 text-primary">Python</span>
+                                            <span class="badge bg-primary-100 text-primary">Django</span>
+                                            <span class="badge bg-primary-100 text-primary">AI/ML</span>
+                                            <span class="badge bg-primary-100 text-primary">REST APIs</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="bg-white p-5 rounded-professional shadow-professional">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center mb-3 mb-md-0">
+                                        <img src="https://images.pixabay.com/photo/2016/12/27/13/10/logo-1933884_1280.png" alt="Selly Africa Logo" class="img-fluid rounded-circle shadow-professional" style="width: 80px; height: 80px; object-fit: cover;" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1572021335469-31706a17aaef?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h4 class="fw-bold text-text-primary mb-2">Full Stack Developer</h4>
+                                        <h5 class="text-primary mb-2">Selly Africa</h5>
+                                        <p class="text-text-secondary mb-3">
+                                            <i class="fas fa-calendar-alt me-2"></i>April 2024 - March 2025
+                                        </p>
+                                        <p class="text-text-secondary mb-3">
+                                            Developed and maintained ecommerce platforms and AI SaaS projects using Django, React, and PostgreSQL. 
+                                            Created scalable backend services and implemented modern frontend solutions for African market.
+                                        </p>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-success-100 text-success">Django</span>
+                                            <span class="badge bg-success-100 text-success">React</span>
+                                            <span class="badge bg-success-100 text-success">PostgreSQL</span>
+                                            <span class="badge bg-success-100 text-success">AI SaaS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="bg-white p-5 rounded-professional shadow-professional">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center mb-3 mb-md-0">
+                                        <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="AI Training Logo" class="img-fluid rounded-circle shadow-professional" style="width: 80px; height: 80px; object-fit: cover;" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h4 class="fw-bold text-text-primary mb-2">AI Trainer</h4>
+                                        <h5 class="text-primary mb-2">Remotask & Outlier</h5>
+                                        <p class="text-text-secondary mb-3">
+                                            <i class="fas fa-calendar-alt me-2"></i>February 2023 - March 2024
+                                        </p>
+                                        <p class="text-text-secondary mb-3">
+                                            Specialized in training AI models and providing high-quality data annotation services. 
+                                            Worked on machine learning projects and contributed to AI model improvement processes.
+                                        </p>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-warning-100 text-warning">AI/ML</span>
+                                            <span class="badge bg-warning-100 text-warning">Data Annotation</span>
+                                            <span class="badge bg-warning-100 text-warning">Model Training</span>
+                                            <span class="badge bg-warning-100 text-warning">Machine Learning</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#experienceCarousel" data-bs-slide="prev">
+                        <i class="fas fa-chevron-left text-white"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#experienceCarousel" data-bs-slide="next">
+                        <i class="fas fa-chevron-right text-white"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold text-text-primary mb-3">Featured Projects</h2>
+                <p class="lead text-text-secondary">
+                    Some of my recent work and achievements
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card bg-white rounded-professional shadow-professional overflow-hidden h-100">
+                    <div class="position-relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="E-commerce Platform" class="w-100 h-100 object-fit-cover" loading="lazy" onerror="this.src='https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-0 d-flex align-items-center justify-content-center transition-professional">
+                            <a href="javascript:void(0)" class="btn btn-light btn-sm me-2">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-light btn-sm">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="fw-bold text-text-primary mb-2">E-commerce Platform</h5>
+                        <p class="text-text-secondary mb-3">
+                            Full-featured e-commerce solution built during my time at Selly Africa using Django, React, and PostgreSQL with payment integration and inventory management.
+                        </p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-primary-100 text-primary">Django</span>
+                            <span class="badge bg-primary-100 text-primary">React</span>
+                            <span class="badge bg-primary-100 text-primary">PostgreSQL</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-text-secondary">
+                                <i class="fas fa-calendar-alt me-1"></i>2024
+                            </small>
+                            <a href="javascript:void(0)" class="text-primary text-decoration-none">
+                                View Details <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card bg-white rounded-professional shadow-professional overflow-hidden h-100">
+                    <div class="position-relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.pixabay.com/photo/2016/11/30/20/58/programming-1873854_1280.png" alt="AI SaaS Ebook Writer" class="w-100 h-100 object-fit-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=2939&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-success opacity-0 d-flex align-items-center justify-content-center transition-professional">
+                            <a href="javascript:void(0)" class="btn btn-light btn-sm me-2">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-light btn-sm">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="fw-bold text-text-primary mb-2">AI SaaS Ebook Writer</h5>
+                        <p class="text-text-secondary mb-3">
+                            AI-powered ebook writing platform that generates high-quality content using Django backend with HTML, CSS, and Bootstrap5 frontend.
+                        </p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-success-100 text-success">Django</span>
+                            <span class="badge bg-success-100 text-success">HTML/CSS</span>
+                            <span class="badge bg-success-100 text-success">Bootstrap5</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-text-secondary">
+                                <i class="fas fa-calendar-alt me-1"></i>2024
+                            </small>
+                            <a href="javascript:void(0)" class="text-success text-decoration-none">
+                                View Details <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card bg-white rounded-professional shadow-professional overflow-hidden h-100">
+                    <div class="position-relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Hospital Management System" class="w-100 h-100 object-fit-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-warning opacity-0 d-flex align-items-center justify-content-center transition-professional">
+                            <a href="javascript:void(0)" class="btn btn-light btn-sm me-2">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-light btn-sm">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="fw-bold text-text-primary mb-2">Hospital Management System</h5>
+                        <p class="text-text-secondary mb-3">
+                            Comprehensive hospital management system with patient records, appointment scheduling, and staff management using Django, HTML, CSS, and Bootstrap5.
+                        </p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-warning-100 text-warning">Django</span>
+                            <span class="badge bg-warning-100 text-warning">HTML/CSS</span>
+                            <span class="badge bg-warning-100 text-warning">Bootstrap5</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-text-secondary">
+                                <i class="fas fa-calendar-alt me-1"></i>2023
+                            </small>
+                            <a href="javascript:void(0)" class="text-warning text-decoration-none">
+                                View Details <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section id="education" class="section-padding bg-surface">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold text-text-primary mb-3">Education</h2>
+                <p class="lead text-text-secondary">
+                    My academic background and professional development
+                </p>
+            </div>
+        </div>
+        <div class="timeline">
+            <!-- Education 1 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content timeline-left">
+                    <span class="timeline-date">2019 - 2024</span>
+                    <h3 class="timeline-title">Bachelor of Science in Actuarial Science</h3>
+                    <p class="timeline-institution">Kirinyaga University</p>
+                    <p class="timeline-description">Comprehensive study of actuarial science including statistical analysis, risk assessment, and financial mathematics. Developed strong analytical and problem-solving skills that translate well to software development and data-driven decision making.</p>
+                </div>
+            </div>
+            
+            <!-- Education 2 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content timeline-right">
+                    <span class="timeline-date">2023 - 2024</span>
+                    <h3 class="timeline-title">Full Stack Web Development</h3>
+                    <p class="timeline-institution">FreeCodeCamp & Udemy</p>
+                    <p class="timeline-description">Intensive learning program covering modern web development technologies, Python/Django, REST APIs, and full-stack development. Gained comprehensive skills in backend development, database management, and API integration.</p>
+                </div>
+            </div>
+            
+            <!-- Education 3 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content timeline-left">
+                    <span class="timeline-date">2024</span>
+                    <h3 class="timeline-title">AWS Certified Solutions Architect</h3>
+                    <p class="timeline-institution">Amazon Web Services</p>
+                    <p class="timeline-description">Professional certification validating expertise in designing distributed systems on AWS.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold text-text-primary mb-3">Get In Touch</h2>
+                <p class="lead text-text-secondary">
+                    Let's discuss your next project or opportunity
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="text-center p-4 bg-white rounded-professional shadow-professional h-100">
+                            <div class="bg-primary-100 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fas fa-envelope text-primary fs-4"></i>
+                            </div>
+                            <h5 class="fw-bold text-text-primary mb-2">Email</h5>
+                            <a href="mailto:paulmwangikimaru@gmail.com" class="text-text-secondary text-decoration-none contact-card-text">paulmwangikimaru@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-4 bg-white rounded-professional shadow-professional h-100">
+                            <div class="bg-success-100 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <a href="https://wa.me/254794581348" target="_blank" class="text-success text-decoration-none">
+                                    <i class="fab fa-whatsapp fs-4"></i>
+                                </a>
+                            </div>
+                            <h5 class="fw-bold text-text-primary mb-2">WhatsApp</h5>
+                            <a href="https://wa.me/254794581348" target="_blank" class="text-text-secondary text-decoration-none contact-card-text">+254 794581348</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-4 bg-white rounded-professional shadow-professional h-100">
+                            <div class="bg-accent-100 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fas fa-map-marker-alt text-accent fs-4"></i>
+                            </div>
+                            <h5 class="fw-bold text-text-primary mb-2">Location</h5>
+                            <p class="text-text-secondary mb-0 contact-card-text">Nairobi, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <form class="bg-white p-5 rounded-professional shadow-professional">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label fw-medium text-text-primary">Name</label>
+                                <input type="text" class="form-control border-secondary-200" id="name" placeholder="Your Name" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label fw-medium text-text-primary">Email</label>
+                                <input type="email" class="form-control border-secondary-200" id="email" placeholder="your.email@example.com" />
+                            </div>
+                            <div class="col-12">
+                                <label for="subject" class="form-label fw-medium text-text-primary">Subject</label>
+                                <input type="text" class="form-control border-secondary-200" id="subject" placeholder="Project Discussion" />
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label fw-medium text-text-primary">Message</label>
+                                <textarea class="form-control border-secondary-200" id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-text-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="mb-0">© 2025 Paul Mwangi. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div class="d-flex justify-content-md-end gap-3 mt-3 mt-md-0">
+                    <a href="https://www.linkedin.com/in/paul-mwangi-505b581b2" target="_blank" class="text-white">
+                        <i class="fab fa-linkedin fs-5"></i>
+                    </a>
+                    <a href="https://github.com/paulmatrix" target="_blank" class="text-white">
+                        <i class="fab fa-github fs-5"></i>
+                    </a>
+                    <a href="https://wa.me/254794581348" target="_blank" class="text-white">
+                        <i class="fab fa-whatsapp fs-5"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="text-white">
+                        <i class="fas fa-globe fs-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate skill bars on scroll
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.getAttribute('data-width');
+                        entry.target.style.width = width + '%';
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            skillBars.forEach(bar => observer.observe(bar));
+        };
+
+        // Project card hover effects
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            const overlay = card.querySelector('.position-absolute');
+            card.addEventListener('mouseenter', () => {
+                if (overlay) overlay.style.opacity = '0.9';
+            });
+            card.addEventListener('mouseleave', () => {
+                if (overlay) overlay.style.opacity = '0';
+            });
+        });
+
+        // Timeline animation on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    timelineObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            animateSkillBars();
+            
+            // Initialize timeline animations
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                timelineObserver.observe(item);
+            });
+        });
+
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+</script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
