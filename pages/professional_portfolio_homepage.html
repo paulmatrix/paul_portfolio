@@ -16,6 +16,18 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            z-index: 1030;
+        }
+        
+        /* Ensure navbar doesn't overlap content on smaller screens */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 8px;
+                margin-top: 10px;
+                padding: 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
         }
         
         .skill-bar {
@@ -70,6 +82,40 @@
         .hero-section {
             background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%);
             min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        /* Responsive adjustments for midsized screens */
+        @media (max-width: 991px) {
+            .hero-section {
+                padding-top: 100px;
+                min-height: auto;
+                padding-bottom: 60px;
+            }
+            
+            .hero-section .display-4 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section .lead {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .hero-section {
+                padding-top: 120px;
+                text-align: center;
+            }
+            
+            .hero-section .display-4 {
+                font-size: 2rem;
+            }
+            
+            .hero-section .btn-lg {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
         }
         
         .section-padding {
@@ -295,7 +341,7 @@
 <section id="home" class="hero-section d-flex align-items-center">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
                 <h1 class="display-4 fw-bold text-text-primary mb-3">
                     Hi, I'm <span class="text-primary">Paul Mwangi</span>
                 </h1>
@@ -327,9 +373,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6 text-center">
+            <div class="col-12 col-md-6 text-center">
                 <div class="position-relative">
-                    <img src="../assets/images/WhatsApp_Image_2025-06-30_at_22.48.07_a29949d0-1753652187421.jpg" alt="Paul Mwangi" class="img-fluid rounded-circle shadow-elevated" style="width: 350px; height: 350px; object-fit: cover;" loading="lazy" />
+                    <img src="../assets/images/WhatsApp_Image_2025-06-30_at_22.48.07_a29949d0-1753652187421.jpg" alt="Paul Mwangi" class="img-fluid rounded-circle shadow-elevated" style="max-width: 350px; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;" loading="lazy" />
                     <div class="position-absolute top-0 start-0 w-100 h-100 rounded-circle" style="background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1)); z-index: -1; transform: scale(1.1);"></div>
                 </div>
             </div>
